@@ -1,0 +1,49 @@
+name: Tests (PR)
+on:
+  pull_request_target:
+    types:
+      - opened
+      - reopened
+      - labeled
+      - unlabeled
+      - synchronize
+      - ready_for_review
+permissions:
+  actions: none
+jobs:
+  run-tests:
+    name: Test Pull Request
+    runs-on: ubuntu-latest
+    if: ${{!github.event.pull_request.draft}}
+    env:
+      NEXT_PUBLIC_SANITY_API_VERSION: ${{vars.NEXT_PUBLIC_SANITY_API_VERSION}}
+      NEXT_PUBLIC_SANITY_DATASET: ${{vars.NEXT_PUBLIC_SANITY_DATASET}}
+      NEXT_PUBLIC_SANITY_PROJECT_ID: ${{vars.NEXT_PUBLIC_SANITY_PROJECT_ID}}
+      SANITY_TOKEN: ${{secrets.SANITY_TOKEN}}
+    steps:
+      - name: Check Safe to Test
+        if: "!contains(github.event.pull_request.labels.*.name, 'safe to test') && !contains(github.event.pull_request.labels.*.name, 'dependencies')"
+        uses: actions/github-script@v6
+        with:
+          script: |
+            core.setFailed('This Pull Request has not been labeled as Safe to Test yet.')
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{github.event.pull_request.head.ref}}
+          repository: ${{github.event.pull_request.head.repo.full_name}}
+      - name: Check for Version Bump
+        uses: bachmacintosh/need-npm-package-version-bump@v1
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+      - name: Install Dependencies
+        run: npm ci
+      - name: Run ESLint
+        run: npm run lint
+      - name: Build Next.js App
+        run: "npm run build"
+      - name: Export Static HTML
+        run: "npm run export"

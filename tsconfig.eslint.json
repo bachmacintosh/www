@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    ".eslintrc.cjs",
+    ".prettierrc.cjs",
+    "tailwind.config.js",
+    "postcss.config.js",
+    "next.config.js",
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": ["node_modules"]
+}
