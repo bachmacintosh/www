@@ -1,11 +1,19 @@
 name: Build (Push)
 
-on: push
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
     name: Deploy on Push
     runs-on: self-hosted
+    env:
+      NEXT_PUBLIC_SANITY_API_VERSION: ${{vars.NEXT_PUBLIC_SANITY_API_VERSION}}
+      NEXT_PUBLIC_SANITY_DATASET: ${{vars.NEXT_PUBLIC_SANITY_DATASET}}
+      NEXT_PUBLIC_SANITY_PROJECT_ID: ${{vars.NEXT_PUBLIC_SANITY_PROJECT_ID}}
+      SANITY_TOKEN: ${{secrets.SANITY_TOKEN}}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
