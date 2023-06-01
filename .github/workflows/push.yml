@@ -1,13 +1,12 @@
 name: Build (Push)
-
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
-
 jobs:
   build:
-    name: Deploy on Push
+    name: Deploy on Push/Dispatch
     runs-on: ubuntu-latest
     env:
       NEXT_PUBLIC_SANITY_API_VERSION: ${{vars.NEXT_PUBLIC_SANITY_API_VERSION}}
