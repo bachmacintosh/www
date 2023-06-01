@@ -22,7 +22,7 @@ jobs:
       SANITY_TOKEN: ${{secrets.SANITY_TOKEN}}
     steps:
       - name: Check Safe to Test
-        if: "!contains(github.event.pull_request.labels.*.name, 'safe to test') && !contains(github.event.pull_request.labels.*.name, 'dependencies')"
+        if: "!contains(github.event.pull_request.labels.*.name, 'safe to test') && contains(github.event.pull_request.labels.*.name, 'dependencies')"
         uses: actions/github-script@v6
         with:
           script: |
@@ -32,8 +32,6 @@ jobs:
         with:
           ref: ${{github.event.pull_request.head.ref}}
           repository: ${{github.event.pull_request.head.repo.full_name}}
-      - name: Check for Version Bump
-        uses: bachmacintosh/need-npm-package-version-bump@v1
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
