@@ -4,7 +4,7 @@ export default function Navigation(): JSX.Element {
     <div className="drawer-side">
       <label
         htmlFor="my-drawer-2"
-        className="drawer-overlay lg:hidden"
+        className="drawer-overlay xl:hidden"
       >
         &nbsp;
       </label>
