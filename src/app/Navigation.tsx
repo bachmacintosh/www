@@ -4,11 +4,11 @@ export default function Navigation(): JSX.Element {
     <div className="drawer-side">
       <label
         htmlFor="my-drawer-2"
-        className="drawer-overlay"
+        className="drawer-overlay xl:hidden"
       >
         &nbsp;
       </label>
-      <ul className="menu p-4 overflow-y-auto w-64 bg-primary text-primary-content">
+      <ul className="menu p-4 w-80 h-full bg-primary text-primary-content">
         <li className="uppercase text-2xl text-center font-extrabold mb-5">BachMacintosh</li>
         <li>
           <a href="#">Home</a>

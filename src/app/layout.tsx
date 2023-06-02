@@ -12,21 +12,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }):
   return (
     <html lang="en">
       <body>
-        <div className="drawer drawer-mobile">
+        <div className="drawer xl:drawer-open">
           <input
             id="my-drawer-2"
             type="checkbox"
             className="drawer-toggle"
           />
-          <div className="drawer-content flex flex-col items-center">
+          <div className="drawer-content flex flex-col">
             <label
               htmlFor="my-drawer-2"
-              className="btn btn-primary drawer-button w-full sticky top-0 lg:hidden text-2xl uppercase font-extrabold"
+              className="btn btn-primary drawer-button w-full sticky top-0 xl:hidden text-2xl uppercase font-extrabold"
             >
               <Bars3Icon className="w-12 h-6 mt-1" />
               BachMacintosh
             </label>
-            <div className="max-w-7xl w-full mx-3 mt-5 text-base-content">
+            <div className="max-w-7xl mx-5 sm:mx-10 md:mx-20 lg:mx-32 xl:mx-10 mt-5 text-base-content">
               {children}
               <Footer />
             </div>
